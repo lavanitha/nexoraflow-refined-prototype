@@ -117,7 +117,26 @@ curl -X POST http://localhost:3002/api/sidehustle \
 
 ## 🚢 Deployment
 
-See [PUSH-INSTRUCTIONS.md](./PUSH-INSTRUCTIONS.md) for GitHub deployment.
+### Quick Deploy (5 Minutes)
+
+**Frontend (Vercel)**:
+1. Import repo at https://vercel.com/new
+2. Framework: Vite (auto-detected)
+3. Set `VITE_API_BASE_URL` = your Render backend URL
+4. Deploy ✅
+
+**Backend (Render)**:
+1. Create Web Service at https://dashboard.render.com/web/new
+2. Root Directory: `backend`
+3. Set environment variables (see DEPLOYMENT.md)
+4. Deploy ✅
+
+### Full Documentation
+
+- **Quick Start**: [QUICK-DEPLOY.md](./QUICK-DEPLOY.md)
+- **Complete Guide**: [DEPLOYMENT.md](./DEPLOYMENT.md)
+- **Error Fix**: [VERCEL-ERROR-FIX.md](./VERCEL-ERROR-FIX.md)
+- **Checklist**: [DEPLOYMENT-CHECKLIST.md](./DEPLOYMENT-CHECKLIST.md)
 
 ## 📝 License
 
