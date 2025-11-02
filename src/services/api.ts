@@ -20,8 +20,8 @@ import type {
   ErrorType
 } from '../types';
 
-// API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
+// API Configuration - must be set via environment variable in production
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:3002' : '');
 
 // Loading state management
 export interface LoadingState {
