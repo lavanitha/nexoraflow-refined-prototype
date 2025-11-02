@@ -1,6 +1,14 @@
 const axios = require('axios');
 const crypto = require('crypto');
 
+// Pinecone is optional - gracefully handle if not installed
+let Pinecone = null;
+try {
+  Pinecone = require('@pinecone-database/pinecone');
+} catch (error) {
+  console.log('Pinecone not installed (optional dependency)');
+}
+
 /**
  * Skill Embeddings utility
  * Generates OpenAI embeddings for skills and handles Pinecone (optional)
@@ -11,10 +19,22 @@ class SkillEmbeddings {
     this.pineconeApiKey = process.env.PINECONE_API_KEY;
     this.pineconeEnv = process.env.PINECONE_ENV;
     this.pineconeIndex = process.env.PINECONE_INDEX || 'skill-dna';
-    this.usePinecone = !!(this.pineconeApiKey && this.pineconeEnv);
+    this.usePinecone = !!(Pinecone && this.pineconeApiKey && this.pineconeEnv);
     
     // In-memory cache for embeddings
     this.embeddingCache = new Map();
+    
+    // Initialize Pinecone only if available and configured
+    if (this.usePinecone) {
+      try {
+        this.pinecone = new Pinecone({ apiKey: this.pineconeApiKey });
+        this.index = this.pinecone.Index(this.pineconeIndex);
+        console.log('Pinecone initialized successfully');
+      } catch (error) {
+        console.warn('Pinecone initialization failed, using in-memory fallback:', error.message);
+        this.usePinecone = false;
+      }
+    }
   }
 
   /**
