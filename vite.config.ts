@@ -16,7 +16,16 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps for production (smaller build)
+    minify: 'terser', // Use terser for better minification
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'router-vendor': ['react-router-dom'],
+        },
+      },
+    },
   },
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),

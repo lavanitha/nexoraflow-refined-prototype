@@ -50,3 +50,5 @@ out/
 .cache/
 .parcel-cache/
 .eslintcache
+
+.vercel

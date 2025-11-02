@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: nexoraflow-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: RAPIDAPI_KEY
+        sync: false
+      - key: RAPIDAPI_HOST
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_API_PROVIDER
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PINECONE_ENV
+        sync: false
+      - key: PINECONE_INDEX
+        sync: false
+      - key: MONGO_URI
+        sync: false
+

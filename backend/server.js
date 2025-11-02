@@ -5,6 +5,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
+// Render assigns PORT automatically, default to 3002 for local dev
 const PORT = process.env.PORT || 3002;
 
 // Security middleware
@@ -20,11 +21,18 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
-// CORS configuration
+// CORS configuration - allows Vercel frontend and localhost
 const corsOptions = {
   origin: process.env.ALLOWED_ORIGINS ? 
     process.env.ALLOWED_ORIGINS.split(',') : 
-    ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
+    [
+      'http://localhost:5173', 
+      'http://localhost:5174', 
+      'http://localhost:3000',
+      // Add your Vercel domain here after deployment
+      /^https:\/\/.*\.vercel\.app$/,
+      /^https:\/\/.*\.vercel\.app\/.*$/
+    ],
   credentials: true,
   optionsSuccessStatus: 200
 };
